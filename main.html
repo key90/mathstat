@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-value</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: 'Inter', sans-serif;
+}
+body{
+background: linear-gradient(120deg,#0f172a,#020617);
+color:#e5e7eb;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+.container{
+width:90%;
+max-width:600px;
+text-align:center;
+animation: fade 1.2s ease;
+}
+h1{
+font-size:2.2rem;
+margin-bottom:20px;
+}
+p{
+font-size:1.1rem;
+line-height:1.6;
+color:#cbd5f5;
+}
+button{
+margin-top:30px;
+padding:14px 28px;
+border:none;
+border-radius:30px;
+background:linear-gradient(135deg,#6366f1,#a855f7);
+color:white;
+font-size:1rem;
+cursor:pointer;
+transition:.3s;
+}
+button:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px rgba(139,92,246,.6);
+}
+.hidden{
+display:none;
+}
+.graph{
+margin:30px 0;
+height:160px;
+background:rgba(255,255,255,0.03);
+border-radius:20px;
+position:relative;
+overflow:hidden;
+}
+.dot{
+width:6px;
+height:6px;
+background:#a855f7;
+border-radius:50%;
+position:absolute;
+animation: float 3s infinite;
+}
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
+}
+@keyframes fade{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+.big{
+font-size:2rem;
+margin:20px 0;
+color:#c084fc;
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="step1">
+<h1>Проверка гипотезы</h1>
+<p>
+H₀: Ты — обычная<br>
+H₁: Ты — невероятная
+</p>
+<button onclick="next(2)">Запустить эксперимент</button>
+</div>
+
+<div class="container hidden" id="step2">
+<h1>Сбор данных</h1>
+<p>Анализируем параметры…</p>
+<div class="graph" id="graph"></div>
+<button onclick="next(3)">Продолжить</button>
+</div>
+
+<div class="container hidden" id="step3">
+<h1>Математическая статистика</h1>
+<p>
+t = 9.81<br>
+p-value = 0.00003<br>
+α = 0.05
+</p>
+<p style="margin-top:15px;">Вероятность, что ты обычная, стремится к нулю.</p>
+<button onclick="next(4)">Проверить гипотезу</button>
+</div>
+
+<div class="container hidden" id="step4">
+<h1 class="big">Результат</h1>
+<p>
+❌ H₀ отклоняется<br>
+✅ Ты — статистически значимо потрясающая
+</p>
+<button onclick="next(5)">Финал</button>
+</div>
+
+<div class="container hidden" id="step5">
+<h1>Вывод эксперимента</h1>
+<p>
+После такого экзамена по матстату<br>
+лучшее, что может случиться —<br>
+это встретить тебя.
+</p>
+<p style="margin-top:20px;">
+Ты не просто редкое событие.<br>
+Ты — самое красивое отклонение от нормы.
+</p>
+</div>
+
+<script>
+function next(n){
+document.querySelectorAll('.container').forEach(c=>c.classList.add('hidden'));
+document.getElementById('step'+n).classList.remove('hidden');
+}
+
+const graph = document.getElementById('graph');
+for(let i=0;i<40;i++){
+const d = document.createElement('div');
+d.className = 'dot';
+d.style.left = Math.random()*100+'%';
+d.style.top = Math.random()*100+'%';
+d.style.animationDelay = Math.random()*3+'s';
+graph.appendChild(d);
+}
+</script>
+
+</body>
+</html>
